@@ -14,7 +14,7 @@ RUN apk upgrade --no-cache -a && \
     cd /src/wolfssl && \
     /src/wolfssl/autogen.sh && \
     /src/wolfssl/configure --prefix=/usr --enable-curl --disable-oldtls --enable-quic --enable-ech --enable-psk --enable-session-ticket --enable-earlydata --disable-shared --enable-static && \
-    make -j "$(nproc)" && \
+    CFLAGS="-DWOLFSSL_NO_ASN_STRICT" make -j "$(nproc)" && \
     make -j "$(nproc)" install && \
     \
     git clone --recursive --branch "$NGH3_VERSION" https://github.com/ngtcp2/nghttp3 /src/nghttp3 && \
